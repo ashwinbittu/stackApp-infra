@@ -40,8 +40,6 @@ module "sg-elb" {
   ]
 }
 
-
-
 module "sg-app" {
     source = "app.terraform.io/radammcorp/sg/aws"
     #aws_region = var.aws_region
@@ -54,37 +52,30 @@ module "sg-app" {
 
     computed_ingress_with_source_security_group_id = [
         {
-          rule = "http-80-tcp"
-          source_security_group_id = module.sg-elb.security_group_id
-        },
-        {
           rule = "http-8080-tcp"
           source_security_group_id = module.sg-elb.security_group_id
         }        
       ]
-    number_of_computed_ingress_with_source_security_group_id = 2
+    number_of_computed_ingress_with_source_security_group_id = 1
       
   }
 
-/*
-
 module "sg-db" {
-  source = "app.terraform.io/radammcorp/sg/aws"
-  #aws_region = var.aws_region
-  app_env   = var.app_env
-  app_name   = var.app_name  
-  app_id   = var.app_id    
-  aws_vpc_id = module.vpc.aws_vpc_id
-  aws_sg_name   = "sg-db"  
-  aws_sg_description = "security group for db"
-  ingress_with_cidr_blocks = [
-      {
-          from_port   = 3306
-          to_port     = 3306
-          protocol    = "tcp"
-          security_groups = [module.sg-app.aws_security_group_instances_id]
-      },    
-    ]    
+    source = "app.terraform.io/radammcorp/sg/aws"
+    #aws_region = var.aws_region
+    app_env   = var.app_env
+    app_name   = var.app_name  
+    app_id   = var.app_id      
+    aws_vpc_id = module.vpc.aws_vpc_id
+    name   = "sgdb"   
+    description = "security group for database"
+    computed_ingress_with_source_security_group_id = [
+        {
+          rule = "mysql-tcp"
+          source_security_group_id = module.sg-elb.security_group_id
+        }       
+      ]
+    number_of_computed_ingress_with_source_security_group_id = 1  
 }  
 
 module "sg-cache" {
@@ -94,16 +85,15 @@ module "sg-cache" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = "sg-cache"    
-    aws_sg_description = "security group for cache"
-    ingress_with_cidr_blocks = [
+    name   = "sgcache"   
+    description = "security group for cache"
+    computed_ingress_with_source_security_group_id = [
         {
-            from_port   = 11211
-            to_port     = 11211
-            protocol    = "tcp"
-            security_groups = [module.sg-app.aws_security_group_instances_id]
-        },    
-      ]     
+          rule = "memcached-tcp"
+          source_security_group_id = module.sg-elb.security_group_id
+        }       
+      ]
+    number_of_computed_ingress_with_source_security_group_id = 1      
 } 
 
 module "sg-message" {
@@ -113,17 +103,18 @@ module "sg-message" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = "sg-message"    
-    aws_sg_description = "security group for message"
-    ingress_with_cidr_blocks = [
+    name   = "sgmessage"   
+    description = "security group for messaging"
+    computed_ingress_with_source_security_group_id = [
         {
-            from_port   = 5672
-            to_port     = 5672
-            protocol    = "tcp"
-            security_groups = [module.sg-app.aws_security_group_instances_id]
-        },    
-      ]     
+          rule = "rabbitmq-5672-tcp"
+          source_security_group_id = module.sg-elb.security_group_id
+        }        
+      ]
+    number_of_computed_ingress_with_source_security_group_id = 1      
 } 
+
+/*
 
 module "elb" {
   source = "app.terraform.io/radammcorp/elb/aws"
