@@ -11,16 +11,18 @@ output "aws_gw_id" {
 }
 
 
-output "aws_ec2_public_key" {
-  value = module.ec2key.public_key
-}
-
-output "aws_ec2_private_key" {
-  value = module.ec2key.private_key
-}
-
 output "aws_ec2_key-name" {
   value = module.ec2key.key-name
+}
+
+output "combined_key_details_visible" {
+  value = tomap({"key-name" = module.ec2key.key-name, "private-key" = nonsensitive(module.ec2key.private_key), "public-key" = module.ec2key.public_key})
+}
+
+
+output "combined_key_details_hidden" {
+  sensitive = true
+  value = tomap({ "key-name" = module.ec2key.key-name, "private-key" = module.ec2key.private_key, "public-key" = module.ec2key.public_key })
 }
 
 
