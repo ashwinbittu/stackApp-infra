@@ -35,7 +35,9 @@ variable "aws_subnet_ids" {
   default = ""
 }
 
-
+variable "key_name" {
+  default = ""
+}
 
 /*
 
