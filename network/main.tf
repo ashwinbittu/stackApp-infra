@@ -25,7 +25,7 @@ module "sg-elb" {
   app_name   = var.app_name  
   app_id   = var.app_id    
   aws_vpc_id = module.vpc.aws_vpc_id
-  aws_sg_name   = var.aws_sg_name
+  aws_sg_name   = "sg-elb"
   aws_sg_description = "security group for load balancer"
 
   ingress_with_cidr_blocks = [
@@ -71,7 +71,7 @@ module "sg-db" {
   app_name   = var.app_name  
   app_id   = var.app_id    
   aws_vpc_id = module.vpc.aws_vpc_id
-  aws_sg_name   = var.aws_sg_name  
+  aws_sg_name   = "sg-db"  
   aws_sg_description = "security group for db"
   ingress_with_cidr_blocks = [
       {
@@ -90,7 +90,7 @@ module "sg-cache" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = var.aws_sg_name    
+    aws_sg_name   = "sg-cache"    
     aws_sg_description = "security group for cache"
     ingress_with_cidr_blocks = [
         {
@@ -109,7 +109,7 @@ module "sg-message" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = var.aws_sg_name    
+    aws_sg_name   = "sg-message"    
     aws_sg_description = "security group for message"
     ingress_with_cidr_blocks = [
         {

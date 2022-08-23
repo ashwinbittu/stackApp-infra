@@ -14,6 +14,7 @@ output "aws_security_group_instances_id" {
   value = module.sg.aws_security_group_instances_id
 }
 
+/*
 output "aws_security_group_elb_id" {
   value = module.sg.aws_security_group_elb_id
 }
@@ -34,7 +35,7 @@ output "aws_ec2_keypair_name" {
   value = module.ec2key.aws_ec2_keypair_name
 }
 
-/*output "aws_route53_zone_id" {
+output "aws_route53_zone_id" {
   value = module.route53.aws_route53_zone_id
 }
 
