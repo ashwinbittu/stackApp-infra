@@ -23,6 +23,7 @@ variable "aws_vpc_instance_tenancy" {
 }
 
 variable "repave_strategy" {
+  default = "rolling"
 }
 
 variable "aws_vpc_id" {
@@ -33,6 +34,8 @@ variable "aws_vpc_id" {
 variable "aws_subnet_ids" {
   default = ""
 }
+
+
 
 /*
 
