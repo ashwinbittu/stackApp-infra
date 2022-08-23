@@ -29,6 +29,21 @@ module "sg-elb" {
   aws_sg_description = "security group for load balancer"
 
   ingress_with_cidr_blocks = [
+      {
+        from_port   = 8080
+        to_port     = 8090
+        protocol    = "tcp"
+        description = "User-service ports"
+        cidr_blocks = "10.10.0.0/16"
+      },
+      {
+        rule        = "postgresql-tcp"
+        cidr_blocks = "0.0.0.0/0"
+      },
+    ]
+
+
+/*  ingress_with_cidr_blocks = [
     {
         from_port   = 80
         to_port     = 80
@@ -41,7 +56,7 @@ module "sg-elb" {
         protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     },    
-  ]
+  ]*/
 
 }
 
