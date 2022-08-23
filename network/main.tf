@@ -114,6 +114,15 @@ module "sg-message" {
     number_of_computed_ingress_with_source_security_group_id = 1      
 } 
 
+module "ec2key" {
+  source = "app.terraform.io/radammcorp/ec2-key/aws"
+	key_name   = var.key_name
+  app_env   = var.app_env
+  app_name   = var.app_name  
+  app_id   = var.app_id   
+}
+
+
 /*
 
 module "elb" {
@@ -150,13 +159,8 @@ module "elb" {
 #  aws_vpc_id = module.vpc.aws_vpc_id
 #}
 
-module "ec2key" {
-  source = "app.terraform.io/radammcorp/ec2-key/aws"
-  #aws_region = var.aws_region
-  app_env   = var.app_env
-  app_name   = var.app_name  
-  app_id   = var.app_id 
-  path_to_public_key = var.path_to_public_key   
-}
-
 */
+
+
+
+
