@@ -1,15 +1,3 @@
-#variable "aws_key" {
-#  default = ""
-#}
-
-#variable "aws_sec" {
-#  default = ""
-#}
-
-#variable "aws_region" {
-#  default = ""
-#}
-
 variable "tf_org" {
 }
 
@@ -41,15 +29,23 @@ variable "aws_vpc_id" {
   default = ""
 }
 
-variable "path_to_public_key" {
-}
 
 variable "aws_subnet_ids" {
   default = ""
 }
 
+/*
+
+variable "aws_region" {
+  default = ""
+}
+
+
 variable "aws_security_group_elb_id" {
   default = ""
+}
+
+variable "path_to_public_key" {
 }
 
 variable "aws_route53_zone_name" {
@@ -74,4 +70,4 @@ variable "aws_sg_name" {
 }
 
 variable "aws_route53_zone_id" {
-}
+}*/
