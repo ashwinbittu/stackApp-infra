@@ -25,8 +25,8 @@ module "sg-elb" {
   app_name   = var.app_name  
   app_id   = var.app_id    
   aws_vpc_id = module.vpc.aws_vpc_id
-  aws_sg_name   = "sg-elb"
-  aws_sg_description = "security group for load balancer"
+  name   = "sg-elb"
+  description = "security group for load balancer"
 
   ingress_with_cidr_blocks = [
       {
