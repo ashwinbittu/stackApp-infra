@@ -21,6 +21,9 @@ module "vpc" {
 module "sg-elb" {
   source = "app.terraform.io/radammcorp/sg/aws"
   #aws_region = var.aws_region
+  app_env   = var.app_env
+  app_name   = var.app_name  
+  app_id   = var.app_id    
   aws_vpc_id = module.vpc.aws_vpc_id
   aws_sg_name   = var.aws_sg_name
   aws_sg_description = "security group for load balancer"
@@ -45,6 +48,9 @@ module "sg-elb" {
 module "sg-app" {
     source = "app.terraform.io/radammcorp/sg/aws"
     #aws_region = var.aws_region
+    app_env   = var.app_env
+    app_name   = var.app_name  
+    app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
     aws_sg_name   = var.aws_sg_name   
     aws_sg_description = "security group for application"
@@ -61,6 +67,9 @@ module "sg-app" {
 module "sg-db" {
   source = "app.terraform.io/radammcorp/sg/aws"
   #aws_region = var.aws_region
+  app_env   = var.app_env
+  app_name   = var.app_name  
+  app_id   = var.app_id    
   aws_vpc_id = module.vpc.aws_vpc_id
   aws_sg_name   = var.aws_sg_name  
   aws_sg_description = "security group for db"
@@ -77,6 +86,9 @@ module "sg-db" {
 module "sg-cache" {
     source = "app.terraform.io/radammcorp/sg/aws"
     #aws_region = var.aws_region
+    app_env   = var.app_env
+    app_name   = var.app_name  
+    app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
     aws_sg_name   = var.aws_sg_name    
     aws_sg_description = "security group for cache"
@@ -93,6 +105,9 @@ module "sg-cache" {
 module "sg-message" {
     source = "app.terraform.io/radammcorp/sg/aws"
     #aws_region = var.aws_region
+    app_env   = var.app_env
+    app_name   = var.app_name  
+    app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
     aws_sg_name   = var.aws_sg_name    
     aws_sg_description = "security group for message"
