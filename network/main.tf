@@ -30,18 +30,13 @@ module "sg-elb" {
 
   ingress_with_cidr_blocks = [
       {
-        from_port   = 80
-        to_port     = 80
-        protocol    = "tcp"
-        description = "User-service ports"
-         cidr_blocks = ["0.0.0.0/0"]
-      },
+        rule        = "https-443-tcp"
+        cidr_blocks = "0.0.0.0/0"
+      },  
       {
-        from_port   = 443
-        to_port     = 443
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-      },       
+        rule        = "http-80-tcp"
+        cidr_blocks = "0.0.0.0/0"
+      },         
   ]
 
 
@@ -54,7 +49,7 @@ module "sg-elb" {
         cidr_blocks = "10.10.0.0/16"
     },
       {
-        rule        = "postgresql-tcp"
+        rule        = "https-443-tcp"
         cidr_blocks = "0.0.0.0/0"
       },    
   ]*/
