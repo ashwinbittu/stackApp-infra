@@ -30,17 +30,19 @@ module "sg-elb" {
 
   ingress_with_cidr_blocks = [
       {
-        from_port   = 8080
-        to_port     = 8090
+        from_port   = 80
+        to_port     = 80
         protocol    = "tcp"
         description = "User-service ports"
-        cidr_blocks = "10.10.0.0/16"
+         cidr_blocks = ["0.0.0.0/0"]
       },
       {
-        rule        = "postgresql-tcp"
-        cidr_blocks = "0.0.0.0/0"
-      },
-    ]
+        from_port   = 443
+        to_port     = 443
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+      },       
+  ]
 
 
 /*  ingress_with_cidr_blocks = [
@@ -48,19 +50,18 @@ module "sg-elb" {
         from_port   = 80
         to_port     = 80
         protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        description = "User-service ports"
+        cidr_blocks = "10.10.0.0/16"
     },
-    {
-        from_port   = 443
-        to_port     = 443
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    },    
+      {
+        rule        = "postgresql-tcp"
+        cidr_blocks = "0.0.0.0/0"
+      },    
   ]*/
 
 }
 
-/*
+
 
 module "sg-app" {
     source = "app.terraform.io/radammcorp/sg/aws"
@@ -69,17 +70,24 @@ module "sg-app" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = "sg-app"   
+    aws_sg_name   = "sgapp"   
     aws_sg_description = "security group for application"
-    ingress_with_cidr_blocks = [
+
+    computed_ingress_with_source_security_group_id = [
         {
-            from_port   = 8080
-            to_port     = 8080
-            protocol    = "tcp"
-            security_groups = [module.sg-elb.aws_security_group_instances_id]
-        },    
-      ]       
+          rule                     = "http-80-tcp"
+          source_security_group_id = module.sg-elb.security_group_id
+        },
+        {
+          rule                     = "http-8080-tcp"
+          source_security_group_id = module.sg-elb.security_group_id
+        }        
+      ]
+    number_of_computed_ingress_with_source_security_group_id = 1
+      
   }
+
+/*
 
 module "sg-db" {
   source = "app.terraform.io/radammcorp/sg/aws"
