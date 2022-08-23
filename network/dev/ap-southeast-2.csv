@@ -1,0 +1,13 @@
+app_name;sampleapp;terraform;false;false;App Name
+app_id;167843;terraform;false;false;App ID
+app_env;DEV;terraform;false;false;App ENV
+repave_strategy;bluegreen;terraform;false;false;Repaving Strategy
+aws_vpc_cidr_block;10.0.0.0\/16;terraform;false;false;VPC CIDR Block
+aws_vpc_instance_tenancy;default;terraform;false;false;VPC Instance Tenancy
+aws_sg_name;aws_sg;terraform;false;false;App Security Group Name
+no_of_subnets;3;terraform;false;false;Number of Subnets Used
+aws_route53_zone_id;Z0970915QC1TPFD6UAWH;terraform;false;false;Hosted Zone ID
+aws_route53_zone_name;ashwinradhakrishnan.net.;terraform;false;false;Route53 DNS Name
+aws_route53_record_name;www.ashwinradhakrishnan.net.;terraform;false;false;Route53 DNS Record
+path_to_public_key;\/home\/ec2-user\/mykey.pub;terraform;false;false;Path to EC2 Public Key
+lb_ssl_id;arn:aws:acm:us-east-1:109769995951:certificate\/b1f23a70-6d55-4439-b2f3-4ca05927fa74;terraform;false;false;Cert id
