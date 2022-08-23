@@ -34,6 +34,12 @@ variable "aws_subnet_ids" {
   default = ""
 }
 
+variable "ingress_with_cidr_blocks" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+  default     = []
+}
+
 /*
 
 variable "aws_region" {
