@@ -70,8 +70,8 @@ module "sg-app" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = "sgapp"   
-    aws_sg_description = "security group for application"
+    name   = "sgapp"   
+    description = "security group for application"
 
     computed_ingress_with_source_security_group_id = [
         {
