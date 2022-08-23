@@ -1,4 +1,4 @@
-app_name;sampleapp;terraform;false;false;App Name
+app_name;stackapp;terraform;false;false;App Name
 app_id;167843;terraform;false;false;App ID
 app_env;DEV;terraform;false;false;App ENV
 repave_strategy;bluegreen;terraform;false;false;Repaving Strategy
