@@ -10,11 +10,13 @@ output "aws_gw_id" {
   value = module.vpc.aws_gw_id
 }
 
+/*
+
 output "aws_security_group_instances_id" {
   value = module.sg-elb.security_group_id
 }
 
-/*
+
 output "aws_security_group_elb_id" {
   value = module.sg.aws_security_group_elb_id
 }
