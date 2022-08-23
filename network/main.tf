@@ -45,6 +45,8 @@ module "sg-elb" {
 
 }
 
+/*
+
 module "sg-app" {
     source = "app.terraform.io/radammcorp/sg/aws"
     #aws_region = var.aws_region
@@ -52,7 +54,7 @@ module "sg-app" {
     app_name   = var.app_name  
     app_id   = var.app_id      
     aws_vpc_id = module.vpc.aws_vpc_id
-    aws_sg_name   = var.aws_sg_name   
+    aws_sg_name   = "sg-app"   
     aws_sg_description = "security group for application"
     ingress_with_cidr_blocks = [
         {
@@ -121,16 +123,16 @@ module "sg-message" {
       ]     
 } 
 
-#module "elb" {
-#  source = "app.terraform.io/radammcorp/elb/aws"
+module "elb" {
+  source = "app.terraform.io/radammcorp/elb/aws"
   #aws_region = var.aws_region
-#  aws_subnet_ids = module.vpc.aws_subnet_ids 
-#  aws_security_group_elb_id = module.sg.aws_security_group_elb_id
-#  lb_ssl_id = "1234"  
-#  app_env   = var.app_env
-#  app_name   = var.app_name  
-#  app_id   = var.app_id    
-#}
+  aws_subnet_ids = module.vpc.aws_subnet_ids 
+  aws_security_group_elb_id = module.sg.aws_security_group_elb_id
+  lb_ssl_id = "1234"  
+  app_env   = var.app_env
+  app_name   = var.app_name  
+  app_id   = var.app_id    
+}
 
 #module "route53" {
 #  source = "app.terraform.io/radammcorp/route53/aws"
@@ -155,11 +157,13 @@ module "sg-message" {
 #  aws_vpc_id = module.vpc.aws_vpc_id
 #}
 
-#module "ec2key" {
-#  source = "app.terraform.io/radammcorp/ec2-key/aws"
+module "ec2key" {
+  source = "app.terraform.io/radammcorp/ec2-key/aws"
   #aws_region = var.aws_region
-#  app_env   = var.app_env
-#  app_name   = var.app_name  
-#  app_id   = var.app_id 
-#  path_to_public_key = var.path_to_public_key   
-#}
+  app_env   = var.app_env
+  app_name   = var.app_name  
+  app_id   = var.app_id 
+  path_to_public_key = var.path_to_public_key   
+}
+
+*/
