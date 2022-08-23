@@ -11,7 +11,7 @@ output "aws_gw_id" {
 }
 
 output "aws_security_group_instances_id" {
-  value = module.sg.aws_security_group_instances_id
+  value = module.sg-elb.aws_security_group_instances_id
 }
 
 /*
