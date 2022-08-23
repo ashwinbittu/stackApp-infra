@@ -30,30 +30,14 @@ module "sg-elb" {
 
   ingress_with_cidr_blocks = [
       {
-        rule        = "https-443-tcp"
+        rule = "https-443-tcp"
         cidr_blocks = "0.0.0.0/0"
       },  
       {
-        rule        = "http-80-tcp"
+        rule = "http-80-tcp"
         cidr_blocks = "0.0.0.0/0"
       },         
   ]
-
-
-/*  ingress_with_cidr_blocks = [
-    {
-        from_port   = 80
-        to_port     = 80
-        protocol    = "tcp"
-        description = "User-service ports"
-        cidr_blocks = "10.10.0.0/16"
-    },
-      {
-        rule        = "https-443-tcp"
-        cidr_blocks = "0.0.0.0/0"
-      },    
-  ]*/
-
 }
 
 
@@ -70,15 +54,15 @@ module "sg-app" {
 
     computed_ingress_with_source_security_group_id = [
         {
-          rule                     = "http-80-tcp"
+          rule = "http-80-tcp"
           source_security_group_id = module.sg-elb.security_group_id
         },
         {
-          rule                     = "http-8080-tcp"
+          rule = "http-8080-tcp"
           source_security_group_id = module.sg-elb.security_group_id
         }        
       ]
-    number_of_computed_ingress_with_source_security_group_id = 1
+    number_of_computed_ingress_with_source_security_group_id = 2
       
   }
 
