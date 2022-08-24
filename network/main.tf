@@ -143,7 +143,7 @@ module "alb-app" {
     {
       port               = 443
       protocol           = "HTTPS"
-      certificate_arn    = "arn:aws:acm:ap-southeast-2:043042377913:certificate/b25e6f10-10e1-41f3-aa5f-6f67600e73d6"
+      certificate_arn    = "arn:aws:acm:ap-southeast-2:043042377913:certificate/6ea053c3-1ba9-42d7-aa59-6794656260a6"
       target_group_index = 0
       action_type        = "forward"
     }
@@ -151,7 +151,7 @@ module "alb-app" {
 
   target_groups = [
     {
-      name_prefix      = "tgapp-"
+      name      = "tgapp"
       backend_protocol = "HTTP"
       backend_port     = 8080
       target_type      = "instance"
