@@ -2,11 +2,6 @@ provider "aws" {
   #region     = var.aws_region
 }
 
-#data "aws_route53_zone" "selected" {
-#  name         = var.aws_route53_zone_name
-#  #private_zone = false
-#}
-
 module "vpc" {
   source = "app.terraform.io/radammcorp/vpc/aws"
   #aws_region = var.aws_region
@@ -122,19 +117,55 @@ module "ec2key" {
   app_id   = var.app_id   
 }
 
+module "alb-app" {
+  source  = "app.terraform.io/radammcorp/alb/aws"
+  
+  app_env   = var.app_env
+  app_name   = var.app_name  
+  app_id   = var.app_id 
+  
+  name = "albapp"
+  load_balancer_type = "application"
+
+  vpc_id             = module.vpc.aws_vpc_id
+  subnets            = module.vpc.aws_subnet_ids
+  security_groups    = module.sg-app.security_group_id
+
+  target_groups = [
+    {
+      name_prefix      = "tgapp"
+      backend_protocol = "HTTP"
+      backend_port     = 80
+      target_type      = "instance"
+    }
+  ]
+
+  /*https_listeners = [
+    {
+      port               = 443
+      protocol           = "HTTPS"
+      certificate_arn    = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
+      target_group_index = 0
+    }
+  ]*/
+
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
+    }
+  ]
+}
+
+
 
 /*
 
-module "elb" {
-  source = "app.terraform.io/radammcorp/elb/aws"
-  #aws_region = var.aws_region
-  aws_subnet_ids = module.vpc.aws_subnet_ids 
-  aws_security_group_elb_id = module.sg.aws_security_group_elb_id
-  lb_ssl_id = "1234"  
-  app_env   = var.app_env
-  app_name   = var.app_name  
-  app_id   = var.app_id    
-}
+#data "aws_route53_zone" "selected" {
+#  name         = var.aws_route53_zone_name
+#  #private_zone = false
+#}
 
 #module "route53" {
 #  source = "app.terraform.io/radammcorp/route53/aws"
