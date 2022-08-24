@@ -14,7 +14,7 @@ data "terraform_remote_state" "network" {
   }
 }
 
-module "launch-temmplate" {
+module "app-launch-template" {
   source  = "app.terraform.io/radammcorp/launchtemplate/aws"
   lt_name = var.lt_name  
   lt_description = var.lt_description  
