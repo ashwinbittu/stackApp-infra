@@ -135,19 +135,30 @@ module "alb-app" {
     {
       name_prefix      = "tgapp"
       backend_protocol = "HTTP"
-      backend_port     = 80
+      backend_port     = 8080
       target_type      = "instance"
+      health_check = {
+        enabled             = true
+        interval            = 30
+        path                = "/login"
+        port                = "8080"
+        healthy_threshold   = 3
+        unhealthy_threshold = 3
+        timeout             = 6
+        protocol            = "HTTP"
+        matcher             = "200-399"
+      }      
     }
   ]
 
-  /*https_listeners = [
+  https_listeners = [
     {
       port               = 443
       protocol           = "HTTPS"
-      certificate_arn    = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
+      certificate_arn    = "arn:aws:acm:ap-southeast-2:043042377913:certificate/b25e6f10-10e1-41f3-aa5f-6f67600e73d6"
       target_group_index = 0
     }
-  ]*/
+  ]
 
   http_tcp_listeners = [
     {
