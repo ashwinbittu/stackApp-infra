@@ -129,7 +129,7 @@ module "alb-app" {
 
   vpc_id             = module.vpc.aws_vpc_id
   subnets            = module.vpc.aws_subnet_ids
-  security_groups    = module.sg-app.security_group_id
+  security_groups    = [module.sg-app.security_group_id]
 
   target_groups = [
     {
