@@ -19,6 +19,7 @@ variable "app_id" {
 }
 
 variable "repave_strategy" {
+  default = ""
 }
 
 variable "lt_name" {
