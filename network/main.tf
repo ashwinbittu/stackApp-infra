@@ -133,10 +133,10 @@ module "alb-app" {
 
   target_groups = [
     {
-      name_prefix      = "tgapp"
+      name      = "tgapp"
       backend_protocol = "HTTP"
       backend_port     = 8080
-      target_type      = "instance"
+      target_type      = "alb"
       health_check = {
         enabled             = true
         interval            = 30
