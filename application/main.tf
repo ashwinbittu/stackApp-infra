@@ -14,21 +14,29 @@ data "terraform_remote_state" "network" {
   }
 }
 
-module "launch-configuration" {
-  source  = "app.terraform.io/CentenePoC/launch-configuration/aws"
-  aws_ec2_keypair_name = data.terraform_remote_state.network.outputs.aws_ec2_keypair_name 
-  aws_security_group_instances_id = data.terraform_remote_state.network.outputs.aws_security_group_instances_id  
-  inst_type = var.inst_type
-  aws_ebs_snap_id = var.aws_ebs_snap_id 
-  aws_ebs_volume_size = var.aws_ebs_volume_size
-  aws_ebs_volume_type = var.aws_ebs_volume_type
-  inst_device_name = var.inst_device_name   
+module "launch-temmplate" {
+  source  = "app.terraform.io/radammcorp/launchtemplate/aws"
+  name = var.lt_name  
+  description = var.lt_description  
+  ami_id = var.ami_id  
+  key_name = data.terraform_remote_state.network.outputs.aws_ec2_key-name 
+  securitygroup_id = data.terraform_remote_state.network.outputs.aws_app_security_group_id  
+  instance_type = var.instance_type
+  instdevice_name = var.instdevice_name 
+  user_datascript =  var.user_datascript  
+
+  /*
   repave_strategy = var.repave_strategy  
   app_version   = var.app_version   
   ami_owners   = var.ami_owners 
+  aws_ebs_snap_id = var.aws_ebs_snap_id 
+  aws_ebs_volume_size = var.aws_ebs_volume_size
+  aws_ebs_volume_type = var.aws_ebs_volume_type
+  */
+
 }
 
-
+/*
 module "asg" {
   source  = "app.terraform.io/CentenePoC/asg/aws"
   aws_elb_name = data.terraform_remote_state.network.outputs.aws_elb_name
@@ -39,3 +47,4 @@ module "asg" {
   app_name   = var.app_name  
   app_id   = var.app_id   
 }
+*/
