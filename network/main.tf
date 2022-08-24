@@ -126,14 +126,32 @@ module "alb-app" {
   
   name = "albapp"
   load_balancer_type = "application"
-
   vpc_id             = module.vpc.aws_vpc_id
   subnets            = module.vpc.aws_subnet_ids
   security_groups    = [module.sg-app.security_group_id]
 
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
+      action_type        = "forward"
+    }
+  ]
+
+  https_listeners = [
+    {
+      port               = 443
+      protocol           = "HTTPS"
+      certificate_arn    = "arn:aws:acm:ap-southeast-2:043042377913:certificate/b25e6f10-10e1-41f3-aa5f-6f67600e73d6"
+      target_group_index = 0
+      action_type        = "forward"
+    }
+  ]
+
   target_groups = [
     {
-      name      = "tgapp"
+      name_prefix      = "tgapp-"
       backend_protocol = "HTTP"
       backend_port     = 8080
       target_type      = "instance"
@@ -151,22 +169,6 @@ module "alb-app" {
     }
   ]
 
-  https_listeners = [
-    {
-      port               = 443
-      protocol           = "HTTPS"
-      certificate_arn    = "arn:aws:acm:ap-southeast-2:043042377913:certificate/b25e6f10-10e1-41f3-aa5f-6f67600e73d6"
-      target_group_index = 0
-    }
-  ]
-
-  http_tcp_listeners = [
-    {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0
-    }
-  ]
 }
 
 
