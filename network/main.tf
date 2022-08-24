@@ -136,7 +136,7 @@ module "alb-app" {
       name      = "tgapp"
       backend_protocol = "HTTP"
       backend_port     = 8080
-      target_type      = "alb"
+      target_type      = "instance"
       health_check = {
         enabled             = true
         interval            = 30
