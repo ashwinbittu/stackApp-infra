@@ -16,8 +16,8 @@ data "terraform_remote_state" "network" {
 
 module "launch-temmplate" {
   source  = "app.terraform.io/radammcorp/launchtemplate/aws"
-  name = var.lt_name  
-  description = var.lt_description  
+  lt_name = var.lt_name  
+  lt_description = var.lt_description  
   ami_id = var.ami_id  
   key_name = data.terraform_remote_state.network.outputs.aws_ec2_key-name 
   securitygroup_id = data.terraform_remote_state.network.outputs.aws_app_security_group_id  
