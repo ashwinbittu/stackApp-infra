@@ -34,9 +34,12 @@ build {
 
   provisioner "shell" {
     script = "userdata/tomcat.sh"
+    pause_before = "10s"
+    timeout      = "10s"       
   }
 
   post-processor "shell-local" {
     inline = ["echo foo"]
   }
 }
+
