@@ -33,11 +33,34 @@ variable "script" {
   default = ""
 }
 
+variable "root-device-type" {
+  type    = string
+  default = ""
+}
+
+variable "virtualization-type" {
+  type    = string
+  default = ""
+}
+
+variable "owners" {
+  type    = string
+  default = ""
+}
+
 source "amazon-ebs" "ubuntu" {
   ami_name      = "${var.app_name}-aws-${var.app_layer}-{{timestamp}}"
   instance_type = var.instance_type
   region        = var.region
-  source_ami    = var.source_ami
+  source_ami_filter {
+    filters = {
+      name                = var.source_ami
+      root-device-type    = var.root-device-type
+      virtualization-type = var.virtualization-type
+    }
+    most_recent = true
+    owners      = [var.owners]
+  }  
   ssh_username  = var.ssh_username
   tags = {
     Name = "${var.app_name}-aws-${var.app_layer}"
